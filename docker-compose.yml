@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # 1. Service Database MariaDB
+  database:
+    image: mariadb:latest
+    container_name: mariadb_uas
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecretpassword
+      MYSQL_DATABASE: dbaksesoris
+      MYSQL_USER: uas_user
+      MYSQL_PASSWORD: uas_password
+    volumes:
+      # Isinya persisten agar data aman dan nilai maksimal
+      - db_data:/var/lib/mysql
+      # Automasi Seeding: Memasukkan data sql otomatis saat container pertama kali dibuat
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - uas_network
+
+  # 2. Service Web Dinamis (PHP)
+  web_dinamis:
+    build: ./web_dinamis
+    container_name: php_app_uas
+    environment:
+      DATABASE_HOST: database  # Menggunakan nama service 'database' sebagai DNS internal
+      DATABASE_USER: uas_user
+      DATABASE_PASSWORD: uas_password
+      DATABASE_NAME: dbaksesoris
+    ports:
+      - "8080:80"  # Web dinamis bisa diakses lewat port 8080 dulu
+    depends_on:
+      - database   # Memastikan database menyala lebih dulu
+    networks:
+      - uas_network
+
+  # 3. Service Web Statis (Nginx)
+  web_statis:
+    image: nginx:alpine
+    container_name: nginx_statis_uas
+    volumes:
+      - ./web_statis:/usr/share/nginx/html
+    ports:
+      - "80:80"    # Port 80 Utama menampilkan Web Statis sesuai rubrik
+    networks:
+      - uas_network
+
+volumes:
+  db_data:
+
+networks:
+  uas_network:
+    driver: bridge
