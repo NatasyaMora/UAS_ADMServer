@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "static-cv/**"
+      - "web_statis/**"
       - "nginx/**"
       - "docker-compose.yml"
       - ".github/workflows/deploy-static.yml"
@@ -27,7 +27,7 @@ jobs:
       - name: Build and push static image
         uses: docker/build-push-action@v6
         with:
-          context: ./static-cv
+          context: ./web_statis
           push: true
           tags: ${{ secrets.STATIC_IMAGE }}
 
@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/uas-cloud
+            cd ~/UAS_ADMServer
             git pull origin main
 
             cat > .env <<'EOF'
@@ -51,7 +51,7 @@ jobs:
             MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
             EOF
 
-            docker compose pull static-cv
-            docker compose up -d --no-deps static-cv
+            docker compose pull web_statis
+            docker compose up -d --no-deps web_statis
             docker compose up -d reverse-proxy
             docker image prune -f
