@@ -33,10 +33,10 @@ $total_produk = mysqli_num_rows($result);
     <div class="dash-nav">
         <div class="dash-nav-container">
             <div class="dash-logo">
-                <a href="dashboard.php">PINKIS<span>Natasya2388010011</span></a>
+                <a href="dashboard.php">PINKISNatasya2388010011</a>
             </div>
             <div class="dash-user">
-                <span><i class="fa-solid fa-circle-user"></i> <?php echo $_SESSION['nama']; ?> (Admin)</span>
+                <i class="fa-solid fa-circle-user"></i> <?php echo $_SESSION['nama']; ?> (Admin)
                 <a href="logout.php" class="btn-logout-top" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></a>
             </div>
         </div>
