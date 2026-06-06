@@ -18,7 +18,9 @@
 4. Set up Github Action
 ![1780691669937](image/README/1780691669937.png)
 5. Test Menjalankan Web Statis dan We Dinamis
+   Web Statis - CV
 ![1780691811746](image/README/1780691811746.png)
+   Web Dinamis
 ![1780691905384](image/README/1780691905384.png)
 6. Mencoba Update Little dari "CV Natasya" => "CV Natasya UAS"
 ![1780695807554](image/README/1780695807554.png)
