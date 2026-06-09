@@ -67,9 +67,9 @@ $result = mysqli_query($koneksi, $query);
             <div class="filter-header">
                 <span class="items-count">HASIL: 3 Items</span>
                 <div class="sort-by">
-                    <label>PILIH BERDASARKAN</label>
+                    <label>FILTER</label>
                     <select>
-                        <option>Produk unggulan</option>
+                        <option> unggulan</option>
                         <option>Harga terendah</option>
                         <option>Harga tertinggi</option>
                     </select>
